@@ -1,5 +1,5 @@
 import { Button } from "./ui/button";
-import gnbLogo from "figma:asset/ea601144222ed9ba57de5e273bb9d48a842ec571.png";
+import gnbLogo from "../assets/ea601144222ed9ba57de5e273bb9d48a842ec571.png";
 
 interface LandingPageProps {
   onOpenAccount: () => void;

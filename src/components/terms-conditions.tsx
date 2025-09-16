@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
-import gnbLogo from "figma:asset/ea601144222ed9ba57de5e273bb9d48a842ec571.png";
+import gnbLogo from "../assets/ea601144222ed9ba57de5e273bb9d48a842ec571.png";
 
 interface TermsConditionsProps {
   onAccept: () => void;

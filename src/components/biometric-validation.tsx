@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { User } from "lucide-react";
-import logo from "figma:asset/5eabd60c02739fb2d3ae2828a4c5134319e7a60b.png";
-import biometricIcon from "figma:asset/f9f90ded2948cdaa2d1cfed26b71f129d8053da5.png";
+import biometricIcon from "../assets/f9f90ded2948cdaa2d1cfed26b71f129d8053da5.png";
 
 interface BiometricValidationProps {
   onComplete: () => void;

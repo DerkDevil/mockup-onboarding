@@ -1,7 +1,7 @@
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { CheckCircle } from "lucide-react";
-import gnbLogo from "figma:asset/ea60114422ed9ba57de5e273bb9d48a842ec571.png";
+import gnbLogo from "../assets/ea601144222ed9ba57de5e273bb9d48a842ec571.png";
 
 interface AccountSuccessProps {
   onGoToBanking: () => void;

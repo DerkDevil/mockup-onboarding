@@ -1,8 +1,7 @@
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { ArrowLeft } from "lucide-react";
-import gnbLogo from "figma:asset/ea601144222ed9ba57de5e273bb9d48a842ec571.png";
-import cardImage from "figma:asset/5709caf6cc6e854f2bf549d5cda8e3ac88e487c9.png";
+import cardImage from "../assets/5709caf6cc6e854f2bf549d5cda8e3ac88e487c9.png";
 
 interface ProductInfoProps {
   onBack: () => void;
