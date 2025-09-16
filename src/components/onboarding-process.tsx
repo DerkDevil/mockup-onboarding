@@ -137,7 +137,7 @@ export function OnboardingProcess({
 
           {/* Steps List */}
           <div className="space-y-4">
-            {steps.map((step, index) => (
+            {steps.map((step) => (
               <div
                 key={step.id}
                 className="flex items-center space-x-4 p-4 rounded-lg transition-all duration-300"
