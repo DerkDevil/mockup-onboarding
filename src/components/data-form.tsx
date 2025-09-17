@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Checkbox } from "./ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { ArrowLeft } from "lucide-react";
 
 interface DataFormProps {
@@ -13,7 +14,7 @@ interface DataFormProps {
 interface FormData {
   fullName: string;
   idNumber: string;
-  birthDate: string;
+  documentType: string;
   email: string;
   phone: string;
   acceptTerms: boolean;
@@ -26,7 +27,7 @@ export function DataForm({
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     idNumber: "",
-    birthDate: "",
+    documentType: "",
     email: "",
     phone: "",
     acceptTerms: false,
@@ -49,7 +50,7 @@ export function DataForm({
     formData.acceptTerms &&
     formData.fullName &&
     formData.idNumber &&
-    formData.birthDate &&
+    formData.documentType &&
     formData.email &&
     formData.phone;
 
@@ -111,6 +112,35 @@ export function DataForm({
             />
           </div>
 
+                    <div className="space-y-2">
+            <Label
+              htmlFor="documentType"
+              className="text-gray-600"
+            >
+              Tipo de documento
+            </Label>
+            <Select
+              value={formData.documentType}
+              onValueChange={(value) =>
+                setFormData({
+                  ...formData,
+                  documentType: value,
+                })
+              }
+            >
+              <SelectTrigger className="border-gray-200 text-gray-700" style={{ "--tw-ring-color": "#89c041" } as any}>
+                <SelectValue placeholder="Seleccione tipo de documento" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="cc">Cédula de Ciudadanía</SelectItem>
+                <SelectItem value="ce">Cédula de Extranjería</SelectItem>
+                <SelectItem value="ti">Tarjeta de Identidad</SelectItem>
+                <SelectItem value="pp">Pasaporte</SelectItem>
+                <SelectItem value="rc">Registro Civil</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="idNumber" className="text-gray-600">
               Número de identificación
@@ -123,32 +153,6 @@ export function DataForm({
                 setFormData({
                   ...formData,
                   idNumber: e.target.value,
-                })
-              }
-              className="border-gray-200 text-gray-700"
-              style={{ "--tw-ring-color": "#89c041" } as any}
-              onFocus={(e) =>
-                (e.target.style.borderColor = "#89c041")
-              }
-              required
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label
-              htmlFor="birthDate"
-              className="text-gray-600"
-            >
-              Fecha de nacimiento
-            </Label>
-            <Input
-              id="birthDate"
-              type="date"
-              value={formData.birthDate}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  birthDate: e.target.value,
                 })
               }
               className="border-gray-200 text-gray-700"
