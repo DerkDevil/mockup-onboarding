@@ -21,7 +21,7 @@ type Screen =
 interface FormData {
   fullName: string;
   idNumber: string;
-  birthDate: string;
+  documentType: string;
   email: string;
   phone: string;
   acceptTerms: boolean;
