@@ -3,6 +3,7 @@ import { LandingPage } from "./components/landing-page";
 import { ProductInfo } from "./components/product-info";
 import { DataForm } from "./components/data-form";
 import { OTPValidation } from "./components/otp-validation";
+import { PEPValidation } from "./components/pep-validation";
 import { OnboardingProcess } from "./components/onboarding-process";
 import { BiometricValidation } from "./components/biometric-validation";
 import { TermsConditions } from "./components/terms-conditions";
@@ -13,6 +14,7 @@ type Screen =
   | "product-info" 
   | "data-form" 
   | "otp-validation" 
+  | "pep-validation"
   | "onboarding-process" 
   | "biometric-validation" 
   | "terms-conditions" 
@@ -30,6 +32,7 @@ interface FormData {
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>("landing");
   const [formData, setFormData] = useState<FormData | null>(null);
+  const [isPEP, setIsPEP] = useState<boolean | null>(null);
 
   const navigateTo = (screen: Screen) => {
     setCurrentScreen(screen);
@@ -38,6 +41,11 @@ export default function App() {
   const handleFormSubmit = (data: FormData) => {
     setFormData(data);
     navigateTo("otp-validation");
+  };
+
+  const handlePEPContinue = (pepStatus: boolean) => {
+    setIsPEP(pepStatus);
+    navigateTo("onboarding-process");
   };
 
   const handleLogin = () => {
@@ -79,8 +87,16 @@ export default function App() {
       case "otp-validation":
         return (
           <OTPValidation
-            onVerify={() => navigateTo("onboarding-process")}
+            onVerify={() => navigateTo("pep-validation")}
             phone={formData?.phone || ""}
+          />
+        );
+      
+      case "pep-validation":
+        return (
+          <PEPValidation
+            onBack={() => navigateTo("otp-validation")}
+            onContinue={handlePEPContinue}
           />
         );
       
