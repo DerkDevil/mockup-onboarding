@@ -5,8 +5,10 @@ import { DataForm } from "./components/data-form";
 import { OTPValidation } from "./components/otp-validation";
 import { PEPValidation } from "./components/pep-validation";
 import { OnboardingProcess } from "./components/onboarding-process";
+import { DocumentCapture } from "./components/document-capture";
 import { BiometricValidation } from "./components/biometric-validation";
 import { TermsConditions } from "./components/terms-conditions";
+import { UserRegistration } from "./components/user-registration";
 import { AccountSuccess } from "./components/account-success";
 
 type Screen = 
@@ -16,8 +18,10 @@ type Screen =
   | "otp-validation" 
   | "pep-validation"
   | "onboarding-process" 
+  | "document-capture"
   | "biometric-validation" 
   | "terms-conditions" 
+  | "user-registration"
   | "account-success";
 
 interface FormData {
@@ -29,10 +33,16 @@ interface FormData {
   acceptTerms: boolean;
 }
 
+interface UserCredentials {
+  username: string;
+  password: string;
+}
+
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>("landing");
   const [formData, setFormData] = useState<FormData | null>(null);
   const [isPEP, setIsPEP] = useState<boolean | null>(null);
+  const [userCredentials, setUserCredentials] = useState<UserCredentials | null>(null);
 
   const navigateTo = (screen: Screen) => {
     setCurrentScreen(screen);
@@ -46,6 +56,11 @@ export default function App() {
   const handlePEPContinue = (pepStatus: boolean) => {
     setIsPEP(pepStatus);
     navigateTo("onboarding-process");
+  };
+
+  const handleUserRegistration = (credentials: UserCredentials) => {
+    setUserCredentials(credentials);
+    navigateTo("account-success");
   };
 
   const handleLogin = () => {
@@ -103,7 +118,16 @@ export default function App() {
       case "onboarding-process":
         return (
           <OnboardingProcess
+            onComplete={() => navigateTo("document-capture")}
+          />
+        );
+      
+      case "document-capture":
+        return (
+          <DocumentCapture
+            onBack={() => navigateTo("onboarding-process")}
             onComplete={() => navigateTo("biometric-validation")}
+            documentType={formData?.documentType || "Documento"}
           />
         );
       
@@ -117,7 +141,15 @@ export default function App() {
       case "terms-conditions":
         return (
           <TermsConditions
-            onAccept={() => navigateTo("account-success")}
+            onAccept={() => navigateTo("user-registration")}
+          />
+        );
+      
+      case "user-registration":
+        return (
+          <UserRegistration
+            onBack={() => navigateTo("terms-conditions")}
+            onComplete={handleUserRegistration}
           />
         );
       
