@@ -4,10 +4,10 @@ import { CheckCircle } from "lucide-react";
 import gnbLogo from "../assets/ea601144222ed9ba57de5e273bb9d48a842ec571.png";
 
 interface AccountSuccessProps {
-  onGoToBanking: () => void;
+  readonly onGoToUserRegistration: () => void;
 }
 
-export function AccountSuccess({ onGoToBanking }: AccountSuccessProps) {
+export function AccountSuccess({ onGoToUserRegistration }: AccountSuccessProps) {
   // Generate a mock account number
   const accountNumber = "4000-1234-5678-9012";
 
@@ -82,7 +82,7 @@ export function AccountSuccess({ onGoToBanking }: AccountSuccessProps) {
           {/* Call to Action */}
           <div className="space-y-4">
             <Button
-              onClick={() => window.open('https://www.gnbsudameris.com.co/', '_blank')}
+              onClick={onGoToUserRegistration}
               className="w-full py-4 rounded-lg"
               style={{ 
                 backgroundColor: '#89c041',
@@ -91,9 +91,8 @@ export function AccountSuccess({ onGoToBanking }: AccountSuccessProps) {
               onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#7bb535'}
               onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#89c041'}
             >
-              Ir a la Banca Virtual
+              Continuar con el registro de usuario
             </Button>
-            
             <p className="text-gray-500 text-xs leading-relaxed">
               Recuerde guardar esta información en un lugar seguro. Su número de cuenta le será solicitado para realizar transacciones.
             </p>

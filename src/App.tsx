@@ -21,8 +21,8 @@ type Screen =
   | "document-capture"
   | "biometric-validation" 
   | "terms-conditions" 
-  | "user-registration"
-  | "account-success";
+  | "account-success"
+  | "user-registration";
 
 interface FormData {
   fullName: string;
@@ -60,18 +60,13 @@ export default function App() {
 
   const handleUserRegistration = (credentials: UserCredentials) => {
     setUserCredentials(credentials);
-    navigateTo("account-success");
+    window.open("https://www.gnbsudameris.com.co/", "_blank");
   };
 
   const handleLogin = () => {
-    // In a real app, this would navigate to a login screen
     alert("Esta funcionalidad redirigirá a la página de inicio de sesión");
   };
 
-  const handleGoToBanking = () => {
-    // In a real app, this would redirect to the banking portal
-    alert("¡Bienvenido a GNB Sudameris! Esta funcionalidad lo llevará a su banca virtual.");
-  };
 
   const renderScreen = () => {
     switch (currentScreen) {
@@ -82,7 +77,6 @@ export default function App() {
             onLogin={handleLogin}
           />
         );
-      
       case "product-info":
         return (
           <ProductInfo
@@ -90,7 +84,6 @@ export default function App() {
             onSelectProduct={() => navigateTo("data-form")}
           />
         );
-      
       case "data-form":
         return (
           <DataForm
@@ -98,7 +91,6 @@ export default function App() {
             onContinue={handleFormSubmit}
           />
         );
-      
       case "otp-validation":
         return (
           <OTPValidation
@@ -106,7 +98,6 @@ export default function App() {
             phone={formData?.phone || ""}
           />
         );
-      
       case "pep-validation":
         return (
           <PEPValidation
@@ -114,14 +105,12 @@ export default function App() {
             onContinue={handlePEPContinue}
           />
         );
-      
       case "onboarding-process":
         return (
           <OnboardingProcess
             onComplete={() => navigateTo("document-capture")}
           />
         );
-      
       case "document-capture":
         return (
           <DocumentCapture
@@ -130,43 +119,32 @@ export default function App() {
             documentType={formData?.documentType || "Documento"}
           />
         );
-      
       case "biometric-validation":
         return (
           <BiometricValidation
             onComplete={() => navigateTo("terms-conditions")}
           />
         );
-      
       case "terms-conditions":
         return (
           <TermsConditions
-            onAccept={() => navigateTo("user-registration")}
+            onAccept={() => navigateTo("account-success")}
           />
         );
-      
-      case "user-registration":
-        return (
-          <UserRegistration
-            onBack={() => navigateTo("terms-conditions")}
-            onComplete={handleUserRegistration}
-          />
-        );
-      
       case "account-success":
         return (
           <AccountSuccess
-            onGoToBanking={handleGoToBanking}
+            onGoToUserRegistration={() => navigateTo("user-registration")}
           />
         );
-      
-      default:
+      case "user-registration":
         return (
-          <LandingPage
-            onOpenAccount={() => navigateTo("product-info")}
-            onLogin={handleLogin}
+          <UserRegistration
+            onBack={() => navigateTo("account-success")}
+            onComplete={handleUserRegistration}
           />
         );
+      default: return null;
     }
   };
 

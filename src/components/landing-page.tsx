@@ -2,8 +2,8 @@ import { Button } from "./ui/button";
 import gnbLogo from "../assets/ea601144222ed9ba57de5e273bb9d48a842ec571.png";
 
 interface LandingPageProps {
-  onOpenAccount: () => void;
-  onLogin: () => void;
+  readonly onOpenAccount: () => void;
+  readonly onLogin: () => void;
 }
 
 export function LandingPage({ onOpenAccount, onLogin }: LandingPageProps) {

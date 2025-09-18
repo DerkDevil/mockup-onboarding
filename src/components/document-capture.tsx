@@ -4,9 +4,9 @@ import { Card } from "./ui/card";
 import { ArrowLeft, Camera, CheckCircle, RotateCcw, FileText } from "lucide-react";
 
 interface DocumentCaptureProps {
-  onBack: () => void;
-  onComplete: () => void;
-  documentType: string;
+  readonly onBack: () => void;
+  readonly onComplete: () => void;
+  readonly documentType: string;
 }
 
 export function DocumentCapture({ onBack, onComplete, documentType }: DocumentCaptureProps) {

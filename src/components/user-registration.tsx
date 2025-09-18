@@ -15,7 +15,7 @@ interface UserCredentials {
   password: string;
 }
 
-export function UserRegistration({ onBack, onComplete }: UserRegistrationProps) {
+export function UserRegistration({ onBack, onComplete }: Readonly<UserRegistrationProps>) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -25,19 +25,23 @@ export function UserRegistration({ onBack, onComplete }: UserRegistrationProps) 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Password validation rules
-  const passwordValidations = {
-    length: formData.password.length >= 8,
-    uppercase: /[A-Z]/.test(formData.password),
-    lowercase: /[a-z]/.test(formData.password),
-    number: /\d/.test(formData.password),
-    special: /[!@#$%^&*(),.?":{}|<>]/.test(formData.password),
+  // Username: 6-12 chars, at least 2 numbers, cannot be ID number (not checked here)
+  const usernameValidations = {
+    length: formData.username.length >= 6 && formData.username.length <= 12,
+    numbers: (formData.username.match(/\d/g)?.length || 0) >= 2,
+    // Optionally: not equal to ID number (not available in this form)
   };
+  const isUsernameValid = Object.values(usernameValidations).every(Boolean);
 
+  // Password: 8-10 chars, at least one number and one letter
+  const passwordValidations = {
+    length: formData.password.length >= 8 && formData.password.length <= 10,
+    number: /\d/.test(formData.password),
+    letter: /[a-zA-Z]/.test(formData.password),
+  };
   const isPasswordValid = Object.values(passwordValidations).every(Boolean);
   const passwordsMatch = formData.password === formData.confirmPassword && formData.confirmPassword !== "";
-  const isUsernameValid = formData.username.length >= 4;
-  
+
   const isFormValid = isPasswordValid && passwordsMatch && isUsernameValid;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -50,7 +54,8 @@ export function UserRegistration({ onBack, onComplete }: UserRegistrationProps) 
     }
   };
 
-  const ValidationItem = ({ isValid, text }: { isValid: boolean; text: string }) => (
+function ValidationItem({ isValid, text }: { isValid: boolean; text: string }) {
+  return (
     <div className="flex items-center space-x-2">
       {isValid ? (
         <Check className="w-4 h-4 text-green-600" />
@@ -62,6 +67,7 @@ export function UserRegistration({ onBack, onComplete }: UserRegistrationProps) 
       </span>
     </div>
   );
+}
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -111,7 +117,7 @@ export function UserRegistration({ onBack, onComplete }: UserRegistrationProps) 
             {/* Username Field */}
             <div className="space-y-2">
               <Label htmlFor="username" className="text-gray-600">
-                Nombre de usuario
+                Usuario de Banca Virtual
               </Label>
               <div className="relative">
                 <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
@@ -130,19 +136,31 @@ export function UserRegistration({ onBack, onComplete }: UserRegistrationProps) 
                   onFocus={(e) =>
                     (e.target.style.borderColor = "#89c041")
                   }
-                  placeholder="Ingrese su nombre de usuario"
+                  placeholder="Ingrese su usuario de banca virtual"
                   required
                 />
               </div>
-              <p className="text-xs text-gray-500">
-                Mínimo 4 caracteres. Solo letras, números y guiones bajos.
+              {formData.username.length > 0 && (
+                <Card className="bg-gray-50 border-gray-200 p-2 mt-2">
+                  <ValidationItem 
+                    isValid={usernameValidations.length} 
+                    text="Mínimo 6 y máximo 12 caracteres" 
+                  />
+                  <ValidationItem 
+                    isValid={usernameValidations.numbers} 
+                    text="Debe incluir por lo menos dos números" 
+                  />
+                </Card>
+              )}
+              <p className="text-xs text-gray-500 mt-1">
+                No puede ser su número de identificación.
               </p>
             </div>
 
             {/* Password Field */}
             <div className="space-y-2">
               <Label htmlFor="password" className="text-gray-600">
-                Contraseña
+                Clave deseada en Banca Virtual
               </Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
@@ -161,7 +179,7 @@ export function UserRegistration({ onBack, onComplete }: UserRegistrationProps) 
                   onFocus={(e) =>
                     (e.target.style.borderColor = "#89c041")
                   }
-                  placeholder="Cree una contraseña segura"
+                  placeholder="Cree su clave de banca virtual"
                   required
                 />
                 <button
@@ -176,38 +194,23 @@ export function UserRegistration({ onBack, onComplete }: UserRegistrationProps) 
                   )}
                 </button>
               </div>
-            </div>
-
-            {/* Password Validation */}
-            {formData.password && (
-              <Card className="bg-gray-50 border-gray-200 p-4">
-                <h4 className="text-sm text-gray-700 mb-3">
-                  Requisitos de contraseña:
-                </h4>
-                <div className="space-y-2">
+              {formData.password.length > 0 && (
+                <Card className="bg-gray-50 border-gray-200 p-2 mt-2">
                   <ValidationItem 
                     isValid={passwordValidations.length} 
-                    text="Mínimo 8 caracteres" 
-                  />
-                  <ValidationItem 
-                    isValid={passwordValidations.uppercase} 
-                    text="Al menos una letra mayúscula" 
-                  />
-                  <ValidationItem 
-                    isValid={passwordValidations.lowercase} 
-                    text="Al menos una letra minúscula" 
+                    text="Mínimo 8 y máximo 10 caracteres" 
                   />
                   <ValidationItem 
                     isValid={passwordValidations.number} 
-                    text="Al menos un número" 
+                    text="Debe incluir por lo menos un número" 
                   />
                   <ValidationItem 
-                    isValid={passwordValidations.special} 
-                    text="Al menos un carácter especial" 
+                    isValid={passwordValidations.letter} 
+                    text="Debe incluir por lo menos una letra" 
                   />
-                </div>
-              </Card>
-            )}
+                </Card>
+              )}
+            </div>
 
             {/* Confirm Password Field */}
             <div className="space-y-2">
