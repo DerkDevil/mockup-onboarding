@@ -195,11 +195,6 @@ export function DocumentCapture({ onBack, onComplete, documentType }: DocumentCa
             <ArrowLeft className="w-5 h-5 text-white" />
           </button>
         )}
-        <div className="flex-1 text-center">
-          <h2 className="text-white text-lg">
-            GNB Sudameris
-          </h2>
-        </div>
       </div>
 
       {/* Content */}
