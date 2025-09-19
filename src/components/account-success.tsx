@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import { CheckCircle, Heart, Play, GraduationCap, Gift } from "lucide-react";
+import { CheckCircle, Heart, Play, GraduationCap, Gift, Home, PawPrint } from "lucide-react";
 import gnbLogo from "../assets/ea601144222ed9ba57de5e273bb9d48a842ec571.png";
 
 
@@ -18,30 +18,31 @@ export function AccountSuccess({ onGoToUserRegistration }: AccountSuccessProps) 
 
   const benefits = [
     {
-      id: "laika",
-      title: "Descuentos en Laika",
-      description: "20% de descuento en productos para mascotas",
-      icon: Heart,
-      details: "Disfrute de descuentos exclusivos en comida, juguetes y accesorios para su mascota en Laika.",
-      color: "#e91e63"
+      id: "mascotas",
+      title: "Asistencias para Mascotas",
+      description: "Atención veterinaria, emergencias y servicios a domicilio",
+      icon: PawPrint, // puedes cambiarlo al ícono que uses
+      details: "Porque tu mejor amigo también merece lo mejor: atención veterinaria, emergencias y servicios a domicilio siempre a tu alcance.",
+      color: "#8e24aa"
     },
     {
-      id: "streaming",
-      title: "Streaming Premium",
-      description: "3 meses gratis de Netflix o Spotify Premium",
-      icon: Play,
-      details: "Elija entre 3 meses gratuitos de Netflix Premium o Spotify Premium para disfrutar sin límites.",
-      color: "#9c27b0"
+      id: "hogar",
+      title: "Asistencias en el Hogar",
+      description: "Plomería, electricidad y cerrajería disponibles",
+      icon: Home, // ajusta según el ícono que tengas
+      details: "Repara, protege y disfruta tu casa sin preocupaciones: plomería, electricidad y cerrajería disponibles cuando más lo necesites.",
+      color: "#4caf50"
     },
     {
-      id: "finance-course",
-      title: "Curso de Finanzas",
-      description: "Curso gratuito de finanzas personales",
-      icon: GraduationCap,
-      details: "Acceso completo a nuestro curso online de finanzas personales e inversiones inteligentes.",
-      color: "#3f51b5"
+      id: "bienestar",
+      title: "Asistencias de Bienestar",
+      description: "Telemedicina, orientación psicológica y más",
+      icon: Heart, // ajusta si prefieres otro
+      details: "Cuida tu salud y tu tranquilidad: telemedicina, orientación psicológica y servicios de bienestar listos para ti.",
+      color: "#2196f3"
     }
   ];
+
 
   const handleBenefitSelect = (benefitId: string) => {
     setSelectedBenefit(benefitId);
