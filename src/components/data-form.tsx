@@ -112,7 +112,30 @@ export function DataForm({
             />
           </div>
 
-                    <div className="space-y-2">
+          <div className="space-y-2">
+            <Label htmlFor="idNumber" className="text-gray-600">
+              Número de identificación
+            </Label>
+            <Input
+              id="idNumber"
+              type="text"
+              value={formData.idNumber}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  idNumber: e.target.value,
+                })
+              }
+              className="border-gray-200 text-gray-700"
+              style={{ "--tw-ring-color": "#89c041" } as any}
+              onFocus={(e) =>
+                (e.target.style.borderColor = "#89c041")
+              }
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
             <Label
               htmlFor="documentType"
               className="text-gray-600"
@@ -139,29 +162,6 @@ export function DataForm({
                 <SelectItem value="rc">Registro Civil</SelectItem>
               </SelectContent>
             </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="idNumber" className="text-gray-600">
-              Número de identificación
-            </Label>
-            <Input
-              id="idNumber"
-              type="text"
-              value={formData.idNumber}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  idNumber: e.target.value,
-                })
-              }
-              className="border-gray-200 text-gray-700"
-              style={{ "--tw-ring-color": "#89c041" } as any}
-              onFocus={(e) =>
-                (e.target.style.borderColor = "#89c041")
-              }
-              required
-            />
           </div>
 
           <div className="space-y-2">

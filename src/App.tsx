@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LandingPage } from "./components/landing-page";
 import { ProductInfo } from "./components/product-info";
-import { DataForm } from "./components/data-form";
+import { ExpandedDataForm } from "./components/expanded-data-form";
 import { OTPValidation } from "./components/otp-validation";
 import { PEPValidation } from "./components/pep-validation";
 import { OnboardingProcess } from "./components/onboarding-process";
@@ -21,16 +21,29 @@ type Screen =
   | "document-capture"
   | "biometric-validation" 
   | "terms-conditions" 
-  | "account-success"
-  | "user-registration";
+  | "user-registration"
+  | "account-success";
 
 interface FormData {
-  fullName: string;
+  // Step 1: Basic Information
   idNumber: string;
+  isResident: boolean;
+  firstName: string;
+  lastName: string;
   documentType: string;
   email: string;
   phone: string;
-  acceptTerms: boolean;
+  // Step 2: Professional & Financial Information
+  occupation: string;
+  company: string;
+  position: string;
+  startDate: string;
+  monthlyIncome: string;
+  monthlyExpenses: string;
+  totalAssets: string;
+  totalLiabilities: string;
+  acceptDataTreatment: boolean;
+  acceptTermsConditions: boolean;
 }
 
 interface UserCredentials {
@@ -86,7 +99,7 @@ export default function App() {
         );
       case "data-form":
         return (
-          <DataForm
+          <ExpandedDataForm
             onBack={() => navigateTo("product-info")}
             onContinue={handleFormSubmit}
           />
